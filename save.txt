@@ -1,0 +1,93 @@
+26  exit
+   27  hostname -i
+   28  sudo apt install nfs-kernel-server rpcbind
+   29  showmount -e localhost
+   30  ls
+   31  cd src/
+   32  ls
+   33  make 
+   34  make clean
+   35  make
+   36  make clean
+   37  make
+   38  make clean
+   39  make
+   40  gcc -o *.c pkg-config --cflags --libs fuse3
+   41  gcc -o *.c pkg-config --cflags --libs fuse
+   42  gcc -o *.c 'pkg-config --cflags --libs fuse'
+   43  gcc -o *.c 'pkg-config --cflags --libs fuse' -D_FILE_OFFSET_BITS=64
+   44  gcc -o *.c 'pkg-config --cflags --libs fuse2' -D_FILE_OFFSET_BITS=64
+   45  sudo apt install libfuse3-dev
+   46  gcc -o *.c 'pkg-config --cflags --libs fuse3' -D_FILE_OFFSET_BITS=64
+   47  make clean
+   48  make 
+   49  > bbfs.c
+   50  make clean
+   51  make 
+   52  cd ../
+   53  ls
+   54  cd ../
+   55  ls
+   56  rm fuse-tutorial-2018-02-04/
+   57  rm -r fuse-tutorial-2018-02-04/
+   58  history
+   59  git status
+   60  tar -xvzf  fuse-tutorial.tgz 
+   61  ls
+   62  cd fuse-tutorial-2018-02-04/src/
+   63  ls
+   64  make 
+   65  ls
+   66  make
+   67  fuse
+   68  sudo apt install libfuse3-dev
+   69  ls
+   70  gcc -o myfs bbfs.c 'pkg-config fuse3 --cflags --libs`
+   71  gcc -o myfs bbfs.c 'pkg-config fuse3 --cflags --libs'
+   72  gcc -o myfs -D_FILE_OFFSET_BITS=64 bbfs.c 'pkg-config fuse3 --cflags --libs'
+   73  pkg-config
+   74  pkg-config fuse3
+   75  gcc -o myfs -D_FILE_OFFSET_BITS=64 bbfs.c 'pkg-config fuse3'
+   76  gcc -o myfs -D_FILE_OFFSET_BITS=64 bbfs.c 'pkg-config fuse3 --cflags --libs'
+   77  gcc -o myfs -D_FILE_OFFSET_BITS=64 bbfs.c $(pkg-config --cflags --libs fuse3)
+   78  sudo apt install libfuse2-dev
+   79  sudo apt install libfuse-dev
+   80  gcc -o myfs -D_FILE_OFFSET_BITS=64 bbfs.c $(pkg-config --cflags --libs fuse)
+   81  gcc -o myfs -D_FILE_OFFSET_BITS=64 bbfs.c $(pkg-config --cflags --libs fuse2)
+   82  gcc -o myfs -D_FILE_OFFSET_BITS=64 *.c $(pkg-config --cflags --libs fuse)
+   83  ls
+   84  ./myfs 
+   85  mkdir test
+   86  mkdir test2
+   87  ./myfs test test2
+   88  ls
+   89  cd test2
+   90  ls
+   91  touch hi
+   92  ls
+   93  cd ..
+   94  ls
+   95  cd test
+   96  ls
+   97  cd ..
+   98  cd test2
+   99  l
+  100  ls
+  101  cd ..
+  102  ls
+  103  rm test
+  104  rm -r test
+  105  ls
+  106  rm -r test2
+  107  ls
+  108  umounntt test2
+  109  umounnt test2
+  110  umount test2
+  111  ls
+  112  cd test
+  113  cd test2
+  114  ls
+  115  cd ..
+  116  rm -r test2
+  117  ls
+  118  histtory
