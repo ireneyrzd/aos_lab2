@@ -23,10 +23,16 @@
 // maintain bbfs state in here
 #include <limits.h>
 #include <stdio.h>
-struct bb_state {
-    FILE *logfile;
-    char *rootdir;
+#include <libssh/libssh.h>
+#include <libssh/sftp.h>
+
+struct bb_state
+{
+  char *rootdir;
+  FILE *logfile;
+  ssh_session session;
+  sftp_session sftp;
 };
-#define BB_DATA ((struct bb_state *) fuse_get_context()->private_data)
+#define BB_DATA ((struct bb_state *)fuse_get_context()->private_data)
 
 #endif

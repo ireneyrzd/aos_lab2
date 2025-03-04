@@ -1,0 +1,86 @@
+
+bb_init()
+    conn:
+    proto_major = 7
+    proto_minor = 34
+    async_read = 1
+    max_write = 131072
+    max_readahead = 131072
+    capable = 00000ffb
+    want = 00000010
+    max_background = 0
+    congestion_threshold = 0
+    context:
+    fuse = 866e6f40
+    uid = 0
+    gid = 0
+    pid = 0
+    private_data = 8662eb20
+    logfile = 8662ef60
+    rootdir = /tmp/irene
+    umask = 00000
+bb_getattr ERROR: sftp_stat failed for path "/tmp/irene/.git"
+bb_getattr ERROR: sftp_stat failed for path "/tmp/irene/.git"
+bb_getattr SUCCESS: path="/tmp/irene/foo"
+bb_getattr ERROR: sftp_stat failed for path "/tmp/irene/.git"
+bb_getattr ERROR: sftp_stat failed for path "/tmp/irene/.git"
+bb_getattr ERROR: sftp_stat failed for path "/tmp/irene/.git"
+bb_getattr ERROR: sftp_stat failed for path "/tmp/irene/.git"
+bb_getattr ERROR: sftp_stat failed for path "/tmp/irene/.git"
+bb_getattr ERROR: sftp_stat failed for path "/tmp/irene/.git"
+bb_getattr SUCCESS: path="/tmp/irene/foo"
+
+bb_open(path="/foo", fi=0xdbffec10)
+  bb_open SUCCESS: file handle = 0x7f5ad4001f30
+
+bb_read(path="/foo", size=4096, offset=0, fi=0xe0c3fc10)
+  bb_read SUCCESS: read 0 bytes
+
+bb_release(path="/foo", fi=0xe0c3fc10)
+  bb_release SUCCESS: file closed
+bb_getattr ERROR: sftp_stat failed for path "/tmp/irene/.git"
+bb_getattr ERROR: sftp_stat failed for path "/tmp/irene/.git"
+bb_getattr SUCCESS: path="/tmp/irene/foo"
+
+bb_open(path="/foo", fi=0xe0c3fc10)
+  bb_open SUCCESS: file handle = 0x7f5adc0030f0
+
+bb_open(path="/foo", fi=0xdbffec10)
+  bb_open SUCCESS: file handle = 0x7f5ad4001f30
+
+bb_write(path="/foo", size=100, offset=0, fi=0xdbffec70)
+  bb_write SUCCESS: wrote 100 bytes
+
+bb_release(path="/foo", fi=0xe0c3fc10)
+
+bb_read(path="/foo", size=4096, offset=0, fi=0xdbffec10)
+  bb_read SUCCESS: read 100 bytes
+
+bb_release(path="/foo", fi=0xdb7fdc10)
+  bb_release SUCCESS: file closed
+bb_getattr ERROR: sftp_stat failed for path "/tmp/irene/.git"
+bb_getattr ERROR: sftp_stat failed for path "/tmp/irene/.git"
+bb_getattr ERROR: sftp_stat failed for path "/tmp/irene/.git"
+bb_getattr ERROR: sftp_stat failed for path "/tmp/irene/.git"
+bb_getattr ERROR: sftp_stat failed for path "/tmp/irene/.git"
+bb_getattr ERROR: sftp_stat failed for path "/tmp/irene/.git"
+bb_getattr SUCCESS: path="/tmp/irene/foo"
+
+bb_open(path="/foo", fi=0xdb7fdc10)
+  bb_open SUCCESS: file handle = 0x7f5acc001a50
+
+bb_read(path="/foo", size=4096, offset=0, fi=0xdbffec10)
+  bb_read SUCCESS: read 100 bytes
+
+bb_release(path="/foo", fi=0xdb7fdc10)
+  bb_release SUCCESS: file closed
+bb_getattr ERROR: sftp_stat failed for path "/tmp/irene/.git"
+bb_getattr ERROR: sftp_stat failed for path "/tmp/irene/.git"
+bb_getattr ERROR: sftp_stat failed for path "/tmp/irene/.git"
+bb_getattr ERROR: sftp_stat failed for path "/tmp/irene/.git"
+bb_getattr ERROR: sftp_stat failed for path "/tmp/irene/.git"
+bb_getattr ERROR: sftp_stat failed for path "/tmp/irene/.git"
+bb_getattr ERROR: sftp_stat failed for path "/tmp/irene/.git"
+bb_getattr ERROR: sftp_stat failed for path "/tmp/irene/.git"
+bb_getattr ERROR: sftp_stat failed for path "/tmp/irene/.git"
+bb_getattr ERROR: sftp_stat failed for path "/tmp/irene/.git"
