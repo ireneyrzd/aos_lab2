@@ -110,6 +110,49 @@ int bb_getattr(const char *path, struct stat *statbuf)
     // return retstat;
 }
 
+int bb_create(const char *path, mode_t mode, struct fuse_file_info *fi)
+{
+    struct bb_state *bb_data = BB_DATA;
+    char fullpath[PATH_MAX];
+
+    log_msg("\nBB_CREATE\n");
+
+    snprintf(fullpath, PATH_MAX, "%s%s", bb_data->rootdir, path);
+    log_msg("\nbb_create(path=\"%s\", mode=%o)\n", fullpath, mode);
+
+    // Open file with O_CREAT flag
+    sftp_file file = sftp_open(bb_data->sftp, fullpath, O_CREAT | O_WRONLY | O_TRUNC, mode);
+    if (file == NULL)
+    {
+        log_msg("  bb_create ERROR: sftp_open failed: %s\n", ssh_get_error(bb_data->session));
+        return -sftp_get_error(bb_data->sftp);
+    }
+
+    // Store the file handle in fi->fh
+    fi->fh = (uint64_t)file;
+    log_msg("  bb_create SUCCESS: file handle = %p\n", file);
+    return 0;
+}
+
+int bb_mknod(const char *path, mode_t mode, dev_t dev)
+{
+    struct bb_state *bb_data = BB_DATA;
+    char fullpath[PATH_MAX];
+
+    snprintf(fullpath, PATH_MAX, "%s%s", bb_data->rootdir, path);
+    log_msg("\nbb_mknod(path=\"%s\", mode=%o)\n", fullpath, mode);
+
+    sftp_file file = sftp_open(bb_data->sftp, fullpath, O_CREAT | O_WRONLY, mode);
+    if (file == NULL)
+    {
+        log_msg("  bb_mknod ERROR: sftp_open failed: %s\n", ssh_get_error(bb_data->session));
+        return -sftp_get_error(bb_data->sftp);
+    }
+
+    sftp_close(file);
+    return 0;
+}
+
 /** File open operation
  *
  * No creation, or truncation flags (O_CREAT, O_EXCL, O_TRUNC)
@@ -409,6 +452,67 @@ void bb_destroy(void *userdata)
     log_msg("\nbb_destroy(userdata=0x%08x)\n", userdata);
 }
 
+int bb_utime(const char *path, struct utimbuf *ubuf) {
+    struct bb_state *bb_data = BB_DATA;
+    char fullpath[PATH_MAX];
+
+    snprintf(fullpath, PATH_MAX, "%s%s", bb_data->rootdir, path);
+    log_msg("\nbb_utime(path=\"%s\", atime=%ld, mtime=%ld)\n",
+            fullpath, ubuf->actime, ubuf->modtime);
+
+    // Retrieve the file attributes
+    sftp_attributes attrs = sftp_stat(bb_data->sftp, fullpath);
+    if (attrs == NULL) {
+        log_msg("  ERROR: sftp_stat failed: %s\n", ssh_get_error(bb_data->sftp));
+        return -sftp_get_error(bb_data->sftp);
+    }
+
+    // Set new access and modification times
+    attrs->atime = ubuf->actime;
+    attrs->mtime = ubuf->modtime;
+
+    int ret = sftp_setstat(bb_data->sftp, fullpath, attrs);
+    sftp_attributes_free(attrs);
+
+    if (ret != SSH_OK) {
+        log_msg("  ERROR: sftp_setstat failed: %s\n", ssh_get_error(bb_data->sftp));
+        return -sftp_get_error(bb_data->sftp);
+    }
+
+    log_msg("  SUCCESS: Updated times for \"%s\"\n", fullpath);
+    return 0;
+}
+
+int bb_utimens(const char *path, const struct timespec ts[2]) {
+    struct bb_state *bb_data = BB_DATA;
+    char fullpath[PATH_MAX];
+
+    snprintf(fullpath, PATH_MAX, "%s%s", bb_data->rootdir, path);
+    log_msg("\nbb_utimens(path=\"%s\")\n", fullpath);
+
+    // Get existing file attributes
+    sftp_attributes attrs = sftp_stat(bb_data->sftp, fullpath);
+    if (attrs == NULL) {
+        log_msg("  ERROR: sftp_stat failed: %s\n", ssh_get_error(bb_data->sftp));
+        return -sftp_get_error(bb_data->sftp);
+    }
+
+    // Modify timestamps
+    attrs->mtime = ts[1].tv_sec;  // Set new modification time
+    int ret = sftp_setstat(bb_data->sftp, fullpath, attrs);
+    sftp_attributes_free(attrs);
+
+    if (ret != SSH_OK) {
+        log_msg("  ERROR: sftp_setstat failed: %s\n", ssh_get_error(bb_data->sftp));
+        return -sftp_get_error(bb_data->sftp);
+    }
+
+    log_msg("  SUCCESS: Updated timestamps for \"%s\"\n", fullpath);
+    return 0;
+}
+
+
+
 /**
  * Check file access permissions
  *
@@ -444,7 +548,7 @@ struct fuse_operations bb_oper = {
     .readlink = NULL,
     // no .getdir -- that's deprecated
     .getdir = NULL,
-    .mknod = NULL,
+    .mknod = bb_mknod,
     .mkdir = NULL,
     .unlink = NULL,
     .rmdir = NULL,
@@ -454,9 +558,10 @@ struct fuse_operations bb_oper = {
     .chmod = NULL,
     .chown = NULL,
     .truncate = NULL,
-    .utime = NULL,
+    .utimens = bb_utimens,
     .open = bb_open,
     .read = bb_read,
+    .create = bb_create,
     .write = bb_write,
     /** Just a placeholder, don't set */ // huh???
     .statfs = bb_statfs,
