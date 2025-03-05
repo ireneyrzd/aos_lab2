@@ -1,0 +1,44 @@
+bb_init()
+    conn:
+    proto_major = 7
+    proto_minor = 34
+    async_read = 1
+    max_write = 131072
+    max_readahead = 131072
+    capable = 00000ffb
+    want = 00000010
+    max_background = 0
+    congestion_threshold = 0
+    context:
+    fuse = a329cf40
+    uid = 0
+    gid = 0
+    pid = 0
+    private_data = a31e4b20
+    logfile = a31e4f60
+    rootdir = /u/yrzd/Downloads/AOS/fuse_remote
+    umask = 00000
+bb_getattr SUCCESS: path="/u/yrzd/Downloads/AOS/fuse_remote/foo"
+    bb_fullpath_remote: rootdir="/u/yrzd/Downloads/AOS/fuse_remote", path="/foo", fullpath="/u/yrzd/Downloads/AOS/fuse_remote/foo"
+bb_open: cached remote file "/u/yrzd/Downloads/AOS/fuse_remote/foo" in "/tmp/fusecachem9X7Ap"
+bb_release: releasing file "/tmp/fusecachem9X7Ap"
+bb_getattr SUCCESS: path="/u/yrzd/Downloads/AOS/fuse_remote/foo"
+    bb_fullpath_remote: rootdir="/u/yrzd/Downloads/AOS/fuse_remote", path="/foo", fullpath="/u/yrzd/Downloads/AOS/fuse_remote/foo"
+bb_open: cached remote file "/u/yrzd/Downloads/AOS/fuse_remote/foo" in "/tmp/fusecacheWrlU62"
+bb_release: releasing file "/tmp/fusecacheWrlU62"
+bb_getattr SUCCESS: path="/u/yrzd/Downloads/AOS/fuse_remote/foo"
+    bb_fullpath_remote: rootdir="/u/yrzd/Downloads/AOS/fuse_remote", path="/foo", fullpath="/u/yrzd/Downloads/AOS/fuse_remote/foo"
+bb_open: cached remote file "/u/yrzd/Downloads/AOS/fuse_remote/foo" in "/tmp/fusecache2u6NKu"
+bb_release: releasing file "/tmp/fusecache2u6NKu"
+bb_getattr SUCCESS: path="/u/yrzd/Downloads/AOS/fuse_remote/foo"
+    bb_fullpath_remote: rootdir="/u/yrzd/Downloads/AOS/fuse_remote", path="/foo", fullpath="/u/yrzd/Downloads/AOS/fuse_remote/foo"
+bb_release: uploaded modified file "/tmp/fusecacheJEa3No" to remote "/u/yrzd/Downloads/AOS/fuse_remote/foo"
+leasing file "/tmp/fusecacheQEtRLF"
+bb_getattr ERROR: sftp_stat failed for path "/u/yrzd/Downloads/AOS/fuse_remote/.git"
+bb_getattr ERROR: sftp_stat failed for path "/u/yrzd/Downloads/AOS/fuse_remote/.git"
+bb_getattr ERROR: sftp_stat failed for path "/u/yrzd/Downloads/AOS/fuse_remote/.git"
+bb_getattr ERROR: sftp_stat failed for path "/u/yrzd/Downloads/AOS/fuse_remote/.git"
+bb_getattr ERROR: sftp_stat failed for path "/u/yrzd/Downloads/AOS/fuse_remote/.git"
+bb_getattr ERROR: sftp_stat failed for path "/u/yrzd/Downloads/AOS/fuse_remote/.git"
+bb_getattr ERROR: sftp_stat failed for path "/u/yrzd/Downloads/AOS/fuse_remote/.git"
+bb_getattr ERROR: sftp_stat failed for path "/u/yrzd/Downloads/AOS/fuse_remote/.git"
